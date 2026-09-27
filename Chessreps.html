@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChessReps</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="chessreps.css">
+</head>
+<body>
+
+<!-- ═══ LEFT STYLE PANEL ═══ -->
+<div class="style-panel" id="style-panel">
+  <div class="style-panel-inner">
+
+    <div class="style-section-title">Piece Style</div>
+    <div class="piece-set-grid" id="piece-set-grid"></div>
+
+    <div class="style-divider"></div>
+
+    <div class="style-section-title">Board Theme</div>
+    <div class="board-theme-grid" id="board-theme-grid"></div>
+
+  </div>
+</div>
+
+<!-- Toggle tab -->
+<button class="style-tab" id="style-tab" onclick="toggleStylePanel()" title="Customize appearance">
+  <span class="style-tab-icon">🎨</span>
+  <span class="style-tab-label">Style</span>
+</button>
+
+<header>
+  <h1>ChessReps</h1>
+  <div class="divider"></div>
+  <p>Master your openings, one move at a time</p>
+</header>
+
+<div class="game-layout">
+
+  <!-- Board Section -->
+  <div class="board-section">
+
+    <!-- Black player -->
+    <div class="player-bar" id="bar-black">
+      <div class="avatar"><img id="avatar-black" src="./Pieces/Classic/King_B.png" width="26" height="26" draggable="false"></div>
+      <div class="name">Black</div>
+      <div class="captured" id="cap-black"></div>
+    </div>
+
+    <div class="board-wrap">
+      <div class="coord-col" id="ranks"></div>
+      <div>
+        <div class="board" id="board">
+          <div class="result-overlay" id="result-overlay">
+            <div class="result-title" id="result-title"></div>
+            <div class="result-sub" id="result-sub"></div>
+            <button class="result-btn" onclick="newGame()">New Game</button>
+          </div>
+        </div>
+        <div class="coord-row" id="files"></div>
+      </div>
+    </div>
+
+    <!-- White player -->
+    <div class="player-bar" id="bar-white">
+      <div class="avatar"><img id="avatar-white" src="./Pieces/Classic/King_W.png" width="26" height="26" draggable="false"></div>
+      <div class="name">White</div>
+      <div class="captured" id="cap-white"></div>
+    </div>
+
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+
+    <div class="panel">
+      <div class="panel-title">Status</div>
+      <div class="status-box">
+        <div class="status-turn" id="status-turn">White to move</div>
+        <div class="status-msg" id="status-msg"></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Controls</div>
+      <div class="controls">
+        <button class="btn primary" onclick="newGame()">⟳ New Game</button>
+        <button class="btn" onclick="flipBoard()">⇅ Flip Board</button>
+        <button class="btn" onclick="undoMove()">← Undo Move</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Move History</div>
+      <div class="move-history" id="move-history"></div>
+    </div>
+
+    <div class="panel" id="rep-panel">
+      <div class="panel-title">
+        Repertoire
+        <span class="badge" id="rep-badge" style="display:none">Active</span>
+      </div>
+      <div class="rep-controls">
+        <select class="rep-select" id="rep-opening" onchange="onOpeningChange()">
+          <option value="">— Select Opening —</option>
+        </select>
+        <select class="rep-select" id="rep-line" onchange="onLineChange()" disabled>
+          <option value="">— Select Line —</option>
+        </select>
+        <button class="btn primary" id="rep-start-btn" onclick="startRepertoire()" disabled>▶ Start Practice</button>
+        <button class="btn" id="rep-stop-btn" onclick="stopRepertoire()" style="display:none">■ Stop Practice</button>
+      </div>
+      <div class="rep-progress" id="rep-progress"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Promotion Modal -->
+<div class="modal-overlay" id="promo-modal">
+  <div class="modal">
+    <h3>Promote Pawn</h3>
+    <div class="promo-pieces" id="promo-pieces"></div>
+  </div>
+</div>
+
+<!-- Openings: each file adds one entry to the shared Openings object -->
+<script src="./Openings/kings_gambit.js"></script>
+<script src="./Openings/queen_gambit_accepted.js"></script>
+<script src="./Openings/queen_gambit_declined.js"></script>
+<script src="./Openings/ruy_lopez.js"></script>
+
+<!-- Main chess logic (reads from Openings) -->
+<script src="chess.js"></script>
+</body>
+</html>
